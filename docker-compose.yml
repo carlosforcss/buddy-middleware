@@ -6,17 +6,10 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
-    networks:
-      - buddy_network
+    network_mode: host
     restart: unless-stopped
     environment:
       - FRONTEND_HOST=${FRONTEND_HOST:-host.docker.internal}
       - FRONTEND_PORT=${FRONTEND_PORT:-3000}
       - BACKEND_HOST=${BACKEND_HOST:-host.docker.internal}
       - BACKEND_PORT=${BACKEND_PORT:-8000}
-
-networks:
-  buddy_network:
-    driver: host
-    external: false
-    name: buddy_middleware_network 
